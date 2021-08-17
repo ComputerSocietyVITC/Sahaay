@@ -1,0 +1,18 @@
+version: "3"
+
+services: 
+  app:
+    build: 
+      #Defines which directory this app builds.
+      #Currently configured to base/root directory
+      context: . 
+    ports:
+      #Maps our local port 8000 
+      #to docker image port 8000 
+      - "8000:8000" 
+    volumes:  
+      #Maps volume from local machine 
+      #to docker image to get realtime updates
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
