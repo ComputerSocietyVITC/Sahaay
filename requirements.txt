@@ -1,4 +1,8 @@
-Django>=3.2.6,<3.3.0
-djangorestframework>=3.12.4,<3.13.0
+fastapi==0.68.0
+uvicorn==0.15.0
+pymongo==3.12.0
 
 flake8>=3.9.2,<3.10.0
+pytest>=6.2.4,<6.3.0
+isort>=5.9.3,<5.10.0
+testcontainers[mongodb]>=3.4.2,<3.5.0

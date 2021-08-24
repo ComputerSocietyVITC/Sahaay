@@ -1,18 +1,14 @@
-version: "3"
+version: "3.8"
 
 services: 
-  app:
+  fast-api:
     build: 
       #Defines which directory this app builds.
       #Currently configured to base/root directory
       context: . 
+    container_name: fast-api
+    restart: always
     ports:
-      #Maps our local port 8000 
-      #to docker image port 8000 
-      - "8000:8000" 
-    volumes:  
-      #Maps volume from local machine 
-      #to docker image to get realtime updates
-      - ./app:/app
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      #Maps our local port 80 
+      #to docker image port 80 
+      - "80:80" 

@@ -3,7 +3,7 @@ python:
   - "3.9"
 
 services:
-  -docker
+  - docker
 
 before_install:
   - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
