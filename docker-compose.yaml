@@ -1,14 +1,32 @@
 version: "3.8"
 
 services: 
-  fast-api:
-    build: 
-      #Defines which directory this app builds.
-      #Currently configured to base/root directory
-      context: . 
-    container_name: fast-api
-    restart: always
+  
+  api:
+    container_name: fastapi
+    # Associates the directory called app with this
+    # Docker container
+    build: ./app
+    # The port 80 is connected to the docker image 
+    # port 80
+    ports: 
+        - 80:80
+    
+    # Sets environment variables
+    environment:
+        - DB_URL=mongodb://db/sahaayDB
+    
+    # Links the directory ./app to the docker volume
+    # app 
+    volumes:
+        - ./app:/app
+  
+  db:
+    image: mongo
+    container_name: database_mongo
     ports:
-      #Maps our local port 80 
-      #to docker image port 80 
-      - "80:80" 
+        - 27017:27017
+    volumes:
+        - taskdb:/data/db
+volumes:
+    taskdb:
