@@ -5,10 +5,14 @@ def user():
     return {
         "first_name": "Mainak",
         "last_name": "Sengupta",
-        "role": "mediocre person",
-        "is_active": True,
+        "role": "simple mortal",
+        "email": "abc@gmail.com",
+        "is_active": False,
         "is_admin": False,
+        "created_at": "datetime",
+        "last_login": "datetime",
         "password": "alPhabetG00d",
+        "password_reverification": "alPhabetG00d"
     }
 
 @pytest.fixture
@@ -16,10 +20,29 @@ def no_pass_user():
     return {
         "first_name": "Mainak",
         "last_name": "Sengupta",
-        "role": "mediocre person",
-        "is_active": True,
+        "role": "simple mortal",
+        "email": "abc@gmail.com",
+        "is_active": False,
         "is_admin": False,
+        "created_at": "datetime",
+        "last_login": "datetime",
         "password": "",
+        "password_reverification": "alPhabetG00d"
+    }
+
+@pytest.fixture
+def unmatching_pass_user():
+    return {
+        "first_name": "Mainak",
+        "last_name": "Sengupta",
+        "role": "simple mortal",
+        "email": "abc@gmail.com",
+        "is_active": False,
+        "is_admin": False,
+        "created_at": "datetime",
+        "last_login": "datetime",
+        "password": "alPhabetG00d",
+        "password_reverification": "alPhabetgood"
     }
 
 @pytest.fixture
@@ -27,52 +50,57 @@ def no_fname_user():
     return {
         "first_name": "",
         "last_name": "Sengupta",
-        "role": "mediocre person",
-        "is_active": True,
+        "role": "simple mortal",
+        "email": "abc@gmail.com",
+        "is_active": False,
         "is_admin": False,
-        "password": "passtobehash",
+        "created_at": "datetime",
+        "last_login": "datetime",
+        "password": "alPhabetG00d",
+        "password_reverification": "alPhabetG00d"
+    }
+
+@pytest.fixture
+def invalid_fname_user():
+    return {
+        "first_name": "Mainak  ",
+        "last_name": "Sengupta",
+        "role": "simple mortal",
+        "email": "abc@gmail.com",
+        "is_active": False,
+        "is_admin": False,
+        "created_at": "datetime",
+        "last_login": "datetime",
+        "password": "alPhabetG00d",
+        "password_reverification": "alPhabetG00d"
     }
 
 @pytest.fixture
 def unreg_role_user():
     return {
-        "first_name": "Mainak",
+        "first_name": "Mainak  ",
         "last_name": "Sengupta",
-        "role": "programmer",
-        "is_active": True,
+        "role": "mediocre mortal",
+        "email": "abc@gmail.com",
+        "is_active": False,
         "is_admin": False,
-        "password": "passtobehash",
+        "created_at": "datetime",
+        "last_login": "datetime",
+        "password": "alPhabetG00d",
+        "password_reverification": "alPhabetG00d"
     }
 
 @pytest.fixture
 def empty_role_user():
     return {
-        "first_name": "Mainak",
+        "first_name": "Mainak  ",
         "last_name": "Sengupta",
-        "role": " ",
-        "is_active": True,
+        "role": "",
+        "email": "abc@gmail.com",
+        "is_active": False,
         "is_admin": False,
-        "password": "passtobehash",
-    }
-
-@pytest.fixture
-def unusual_character_in_fname():
-    return {
-        "first_name": "M@!nak",
-        "last_name": "Sengupta",
-        "role": "mediocre person",
-        "is_active": True,
-        "is_admin": False,
-        "password": "passtobehash",
-    }
-
-@pytest.fixture
-def repeated_name_user():
-    return {
-        "first_name": "Mainak",
-        "last_name": "Sengupta",
-        "role": "mediocre person",
-        "is_active": True,
-        "is_admin": False,
-        "password": "passtobehash",
+        "created_at": "datetime",
+        "last_login": "datetime",
+        "password": "alPhabetG00d",
+        "password_reverification": "alPhabetG00d"
     }
