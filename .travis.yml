@@ -11,4 +11,6 @@ before_install:
 before_script: pip install docker-compose
 
 script:
+  - docker-compose build
+  - docker-compose up -d
   - docker-compose run --rm api sh -c "pytest"
