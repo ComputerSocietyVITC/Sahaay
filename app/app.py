@@ -1,11 +1,16 @@
-from fastapi import FastAPI
-import uvicorn
+from fastapi import (
+    FastAPI,
+    HTTPException,
+    status,
+    Request,
+)
+
+from routes.userRoutes import router
+
+import base64
+import binascii
 
 app = FastAPI()
 
-@app.get("/")
-async def read_item(name: str = "Default Value"):
-    return {
-        "item_id": "Hello World",
-        "name": name    
-    }
+
+app.include_router(router)

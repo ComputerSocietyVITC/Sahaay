@@ -1,8 +1,8 @@
 from fastapi.security import OAuth2PasswordBearer, oauth2
 from passlib.context import CryptContext
 
-#import os
-#import motor.motor_asyncio as asyncio
+import os
+import motor.motor_asyncio as asyncio
 
 # ================= Creating necessary variables ========================
 #------------------ Token, authentication variables ---------------------
@@ -15,5 +15,5 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 #----------------- Database variables (MongoDB) --------------------------
-#client = asyncio.AsyncIOMotorClient(os.environ["DB_URL"])
-#db = client.sahaayDB
+client = asyncio.AsyncIOMotorClient(os.environ["DB_URL"])
+db = client.sahaayDB
