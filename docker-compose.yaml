@@ -10,7 +10,7 @@ services:
     # The port 80 is connected to the docker image 
     # port 80
     ports: 
-        - 80:80
+        - 3000:3000
     
     # Sets environment variables
     environment:
@@ -25,7 +25,7 @@ services:
     image: mongo
     container_name: database_mongo
     ports:
-        - 27017:27017
+        - 27018:27018
     volumes:
         - taskdb:/data/db
 volumes:

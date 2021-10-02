@@ -1,11 +1,36 @@
-from fastapi import FastAPI
-import uvicorn
+from fastapi import (
+    FastAPI,
+    HTTPException,
+    status,
+    Request,
+)
+
+from routes.userRoutes import userRouter
+from views.dependencies import authenticate_user
+
+import base64
+import binascii
 
 app = FastAPI()
 
-@app.get("/")
-async def read_item(name: str = "Default Value"):
-    return {
-        "item_id": "Hello World",
-        "name": name    
-    }
+@app.middleware("http")
+async def authenticate(request:Request, call_next):
+    if "Authorization" in request.headers:
+        auth = request.headers["Authorization"]
+        try:
+            scheme, creds = auth.split()
+            if scheme.lower() == 'basic':
+                decoded = base64.b64decode(creds).decode("ascii")
+                username, _, password = decoded.partition(":")
+                request.state.user = await authenticate_user(username, password)
+        except (ValueError, UnicodeDecodeError, binascii.Error):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid basic authentication"
+            )
+            
+    response = await call_next(request)
+    return response
+
+
+app.include_router(userRouter)
