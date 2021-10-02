@@ -119,10 +119,18 @@ class UpdateUserModel(BaseModel):
     first_name: Optional[str]
     last_name: Optional[str]
     role: Optional[str]
+    email: Optional[EmailStr]
     is_active: Optional[bool]
     is_admin: Optional[bool]
-    created_at: Optional[str]
-    last_login: Optional[str]
+    password: Optional[str]
+    password_reverification: Optional[str]
+    
+
+    @validator('password_reverification')
+    def password_match_check(cls,v, values, **kwargs):
+        if 'password' in values and v!=values['password']:
+            return ValidationError("Passwords do not match")
+        return v
 
     class Config:
         arbitrary_types_allowed = True
@@ -132,10 +140,11 @@ class UpdateUserModel(BaseModel):
                 "first_name": "John",
                 "last_name": "Doe",
                 "role": "simple mortal",
+                "email": "John.D@xyz.com",
                 "is_active": False,
                 "is_admin": False,
-                "created_at": "datetime",
-                "last_login": "datetime",
+                "password": "newpassword",
+                "password_reverification":"newpassword"
             }
         }
 

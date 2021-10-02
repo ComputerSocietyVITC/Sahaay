@@ -6,7 +6,7 @@ def user():
         "first_name": "Mainak",
         "last_name": "Sengupta",
         "role": "simple mortal",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
@@ -21,7 +21,7 @@ def no_pass_user():
         "first_name": "Mainak",
         "last_name": "Sengupta",
         "role": "simple mortal",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
@@ -36,7 +36,7 @@ def unmatching_pass_user():
         "first_name": "Mainak",
         "last_name": "Sengupta",
         "role": "simple mortal",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
@@ -51,7 +51,7 @@ def no_fname_user():
         "first_name": "",
         "last_name": "Sengupta",
         "role": "simple mortal",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
@@ -66,7 +66,7 @@ def invalid_fname_user():
         "first_name": "Mainak  ",
         "last_name": "Sengupta",
         "role": "simple mortal",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
@@ -81,7 +81,7 @@ def unreg_role_user():
         "first_name": "Mainak  ",
         "last_name": "Sengupta",
         "role": "mediocre mortal",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
@@ -96,11 +96,17 @@ def empty_role_user():
         "first_name": "Mainak  ",
         "last_name": "Sengupta",
         "role": "",
-        "email": "abc@gmail.com",
+        "email": "test@user.com",
         "is_active": False,
         "is_admin": False,
         "created_at": "datetime",
         "last_login": "datetime",
         "password": "alPhabetG00d",
         "password_reverification": "alPhabetG00d"
+    }
+
+@pytest.fixture
+def update_def_user():
+    return {
+        "first_name": "Manak",
     }
