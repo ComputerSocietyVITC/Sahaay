@@ -1,4 +1,2 @@
-__all__ = (
-    "user_router"
-)
+__all__ = "user_router"
 from .user_routes import userRouter as user_router

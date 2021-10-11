@@ -1,6 +1,7 @@
 from bson import ObjectId
 from django.db import models
 
+
 class PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -16,5 +17,6 @@ class PyObjectId(ObjectId):
     def __modify_schema__(cls, field_schema):
         field_schema.update(type="string")
 
+
 class BaseModel(models.Model):
-    Tests = models.CharField(max_length = 255)
+    Tests = models.CharField(max_length=255)

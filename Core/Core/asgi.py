@@ -8,7 +8,7 @@ from pathlib import Path
 from starlette.responses import FileResponse
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Core.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Core.settings")
 
 from Logic.routers import user_router
 
@@ -26,9 +26,13 @@ if settings.MOUNT_DJANGO:
 else:
     fastapi = FastAPI()
 
+
 @fastapi.get("/favicon.ico")
 def get_logo():
-    path_to_file = str(Path(__file__).resolve().parent.parent.parent) + str("/design/logo/logo.svg")
+    path_to_file = str(Path(__file__).resolve().parent.parent.parent) + str(
+        "/design/logo/logo.svg"
+    )
     return FileResponse(path_to_file)
+
 
 fastapi.include_router(user_router, prefix="/routes")
