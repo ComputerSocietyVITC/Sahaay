@@ -81,17 +81,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
 MOUNT_DJANGO = False
 
-if MOUNT_DATABASE == False:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "Database/db.sqlite3",
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_name',                      
+        'USER': "postgres",
+        'PASSWORD': "postgres",
+        'HOST': '',
+        'PORT': '',
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "Database/db.sql",
-        }
-    }
+}
