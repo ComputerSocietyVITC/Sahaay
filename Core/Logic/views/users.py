@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from json import JSONEncoder
 
-from models.userModel import (
+from models.user_model import (
     UserModel,
     ValidateUserModel,
     UpdateUserModel,
@@ -14,10 +14,10 @@ from models.userModel import (
 
 from views.dependencies import hash_password, verify_password
 
-from settings import db, ACCESS_TOKEN_EXPIRE_MINUTES
+from Core.app_secrets import db, ACCESS_TOKEN_EXPIRE_MINUTES
 
-from typing import List, Optional
-from datetime import datetime, timedelta
+from typing import Optional
+from datetime import datetime
 
 import re
 

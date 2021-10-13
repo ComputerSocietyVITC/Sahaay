@@ -79,7 +79,7 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
-MOUNT_DJANGO = False
+MOUNT_DJANGO = True
 
 if MOUNT_DATABASE == False:
     DATABASES = {

@@ -1,20 +1,29 @@
 import os
 from fastapi import FastAPI
 from django.conf import settings
+from starlette import middleware
 from starlette.staticfiles import StaticFiles
 from starlette.routing import Mount
 from django.core.asgi import get_asgi_application
 from pathlib import Path
 from starlette.responses import FileResponse
 from django.core.asgi import get_asgi_application
+from starlette.middleware import Middleware
+from starlette.middleware.authentication import AuthenticationMiddleware
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Core.settings")
 
 from Logic.routers import user_router
+from .auth import BasicAuthBackend
 
 app = get_asgi_application()
 
 DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + "\design\static"
+
+
+middleware = [
+    Middleware(AuthenticationMiddleware, backend=BasicAuthBackend)
+]
 
 if settings.MOUNT_DJANGO:
     routes: list = [
@@ -25,7 +34,6 @@ if settings.MOUNT_DJANGO:
 
 else:
     fastapi = FastAPI()
-
 
 @fastapi.get("/favicon.ico")
 def get_logo():
