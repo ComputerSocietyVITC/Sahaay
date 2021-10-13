@@ -1,0 +1,33 @@
+{
+  "name": "react-desgin-for-sahaay",
+  "version": "1.0.0",
+  "description": "Design for Sahaay app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ComputerSocietyVITC/Sahaay.git"
+  },
+  "author": "Computer-Society IEEE VIT Chennai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ComputerSocietyVITC/Sahaay/issues"
+  },
+  "homepage": "https://github.com/ComputerSocietyVITC/Sahaay#readme",
+  "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@material-ui/core": "^4.12.3",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0"
+  }
+}

@@ -8,22 +8,23 @@ from views.dependencies import authenticate_user
 
 app = FastAPI()
 
+
 @app.middleware("http")
-async def authenticate(request:Request, call_next):
+async def authenticate(request: Request, call_next):
     if "Authorization" in request.headers:
         auth = request.headers["Authorization"]
         try:
             scheme, creds = auth.split()
-            if scheme.lower() == 'basic':
+            if scheme.lower() == "basic":
                 decoded = base64.b64decode(creds).decode("ascii")
                 username, _, password = decoded.partition(":")
                 request.state.user = await authenticate_user(username, password)
         except (ValueError, UnicodeDecodeError, binascii.Error):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid basic authentication"
+                detail="Invalid basic authentication",
             )
-            
+
     response = await call_next(request)
     return response
 
