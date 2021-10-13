@@ -6,7 +6,7 @@ services:
     container_name: fastapi
     # Associates the directory called app with this
     # Docker container
-    build: ./app
+    build: .
     # The port 80 is connected to the docker image 
     # port 80
     ports: 
@@ -14,16 +14,17 @@ services:
     
     # Sets environment variables
     environment:
-        - DB_URL=mongodb://db/sahaayDB
+        - DB_URL=postgres://db/sahaayDB
+        - SECRET_KEY=4ab5be85c8c56eecdd547f7831979be83de58a6768d10a314f54cda4e4d67ffe
     
     # Links the directory ./app to the docker volume
     # app 
     volumes:
-        - ./app:/app
+        - ./Core:/Core
   
   db:
-    image: mongo
-    container_name: database_mongo
+    image: postgres
+    container_name: database_postgres
     ports:
         - 27018:27018
     volumes:
