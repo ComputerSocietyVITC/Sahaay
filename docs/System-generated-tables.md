@@ -12,7 +12,7 @@ The following tables are created by Django's initial migrations:
 - django_content_type
 - django_migrations
 - django_session
-- <db>_sequence
+- db_sequence
  
  The following tables are created when 
   ```py
