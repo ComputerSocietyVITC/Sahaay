@@ -2,7 +2,7 @@ import base64
 import binascii
 
 from fastapi import FastAPI, HTTPException, Request, status
-from routes.user_routes import user_router
+from routers.user_routes import user_router
 
 from views.dependencies import authenticate_user
 

@@ -3,9 +3,9 @@ from fastapi import (
 )
 from fastapi.responses import HTMLResponse
 
-userRouter = APIRouter()
+user_router = APIRouter()
 
 
-@userRouter.get("/hello-world")
+@user_router.get("/hello-world")
 def Hello_world():
     return HTMLResponse("Hello World")
