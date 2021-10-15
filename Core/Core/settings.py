@@ -76,18 +76,34 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
 MOUNT_DJANGO = True
+PSQL = True
 
-if MOUNT_DATABASE == False:
+
+if MOUNT_DATABASE !=True:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "Database/db.sqlite3",
         }
     }
+elif PSQL == True:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postges',
+        'USER': os.environ.get("POSTGRES_USER"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': 'Testing',
+        'PORT': 5432,
+    }
+}
+
+
 else:
     DATABASES = {
         "default": {
@@ -95,3 +111,4 @@ else:
             "NAME": BASE_DIR / "Database/db.sql",
         }
     }
+
