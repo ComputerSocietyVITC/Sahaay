@@ -4,19 +4,23 @@ services:
   api:
     image: sahaay
     container_name: Dancing_Rose
-    # Associates the directory called app with this
-    # Docker container
+    # Docker container Name will be Dancing Rose
+    
+    #Environment File
+    env_file:
+        - Core/.env
+    
+    #commands which will be executed
     command: python3 manage.py migrate
     command: python3 manage.py collectstatic
     command: uvicorn Core.asgi:fastapi --proxy-headers --host 0.0.0.0 --port 8080
 
+    #ports that would be exposed
     ports:
        - 8080:8080
     environment:
         - DB_URL=postgres://db/sahaayDB
          
-
-
     # Links the directory ./app to the docker volume
     # app 
     volumes:
@@ -27,6 +31,8 @@ services:
     image: postgres
     container_name: database_postgres
 
+    env_file:
+        - db.env
     ports:
         - 5432:5432
     volumes:
