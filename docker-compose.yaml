@@ -11,7 +11,11 @@ services:
     environment:
         - DB_URL=postgres://db/sahaayDB
         - SECRET_KEY=4ab5be85c8c56eecdd547f7831979be83de58a6768d10a314f54cda4e4d67ffe
-    
+    env_file:
+        - ./Core/.env
+    command: python3 manage.py collectstatic --no-input
+    command: python3 manage.py migrate
+    command: uvicorn Core.asgi:fastapi --proxy-headers --host 0.0.0.0 --port 8080
     # Links the directory ./app to the docker volume
     # app 
     volumes:
@@ -21,8 +25,10 @@ services:
   db:
     image: postgres
     container_name: database_postgres
+    env_file:
+        - db.env
     ports:
-        - 27018:27018
+        - 5432:5432
     volumes:
         - taskdb:/data/db
 volumes:
