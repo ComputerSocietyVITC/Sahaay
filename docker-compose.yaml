@@ -2,16 +2,12 @@ version: "3.9"
 
 services: 
   api:
-    container_name: fastapi
+    image: sahaay
+    container_name: Dancing_Rose
     # Associates the directory called app with this
     # Docker container
-    build: .
-    # The port 80 is connected to the docker image 
-    # port 80
-    ports: 
-        - 3000:3000
-    
-    # Sets environment variables
+    ports:
+       - 8080:8080
     environment:
         - DB_URL=postgres://db/sahaayDB
         - SECRET_KEY=4ab5be85c8c56eecdd547f7831979be83de58a6768d10a314f54cda4e4d67ffe

@@ -6,14 +6,16 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements/dev.txt requirements.txt
 RUN pip install -r requirements.txt
 
-EXPOSE 3000
 
-WORKDIR /
+
+WORKDIR /Core
 COPY /design /design
 COPY /Core /Core
 
 
-CMD ["uvicorn", "Core.asgi:fastapi", "--reload","--host","0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "Core.asgi:fastapi", "--proxy-headers", "--host", "0.0.0.0", "--port", "8080"]
+
+EXPOSE 3000
 
 # RUN adduser -D user
 # USER user
