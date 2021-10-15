@@ -11,6 +11,6 @@ EXPOSE 3000
 WORKDIR /Core
 COPY /Core /Core
 
-CMD ["uvicorn", "Core.asgi:app", "--reload", "--port", "3000"]
+CMD ["uvicorn", "Core.asgi:fastapi", "--reload", "--port", "3000"]
 # RUN adduser -D user
 # USER user
