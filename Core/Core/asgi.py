@@ -22,7 +22,7 @@ from .auth import BasicAuthBackend
 
 app = get_asgi_application()
 
-DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + "\design\static"
+DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(Path("design/static"))
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
