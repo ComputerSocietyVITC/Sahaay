@@ -24,4 +24,4 @@ jobs:
         run: |
          docker build -t sahaay .
          docker-compose up -d
-         docker-compose run --rm api sh -c "pytest" 
+        
