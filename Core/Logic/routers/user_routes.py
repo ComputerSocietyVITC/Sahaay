@@ -17,9 +17,6 @@ class User(BaseModel):
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
     
-@userRouter.get("/hello-world")
-def Hello_world(request: Request):
-    print(list(request.user))
 @user_router.get("/hello-world")
 def Hello_world():
     return HTMLResponse("Hello World")
