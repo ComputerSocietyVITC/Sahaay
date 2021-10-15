@@ -1,7 +1,6 @@
-version: "3.8"
+version: "3.9"
 
 services: 
-  
   api:
     container_name: fastapi
     # Associates the directory called app with this
@@ -20,6 +19,7 @@ services:
     # Links the directory ./app to the docker volume
     # app 
     volumes:
+        - ./design:/design
         - ./Core:/Core
   
   db:
