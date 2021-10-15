@@ -22,13 +22,13 @@ from .auth import BasicAuthBackend
 
 app = get_asgi_application()
 
-DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(Path("design/static"))
+DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(
+    Path("design/static")
+)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-middleware = [
-    Middleware(AuthenticationMiddleware, backend = BasicAuthBackend)
-]
+middleware = [Middleware(AuthenticationMiddleware, backend=BasicAuthBackend)]
 
 if settings.MOUNT_DJANGO:
     routes: list = [
@@ -40,6 +40,7 @@ if settings.MOUNT_DJANGO:
 else:
     fastapi = FastAPI()
 
+
 @fastapi.get("/favicon.ico")
 def get_logo():
     path_to_file = str(Path(__file__).resolve().parent.parent.parent) + str(
@@ -48,4 +49,6 @@ def get_logo():
     return FileResponse(path_to_file)
 
 
-fastapi.include_router(user_router,dependencies=[Depends(oauth2_scheme)] ,prefix="/routes")
+fastapi.include_router(
+    user_router, dependencies=[Depends(oauth2_scheme)], prefix="/routes"
+)
