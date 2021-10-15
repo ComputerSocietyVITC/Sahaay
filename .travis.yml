@@ -12,6 +12,6 @@ before_script: pip install docker-compose
 
 script:
   - echo No tests yet
-  # - docker-compose build
-  # - docker-compose up -d
-  # - docker-compose run --rm api sh -c "pytest"
+  - docker-compose build
+  - docker-compose up -d
+  - docker-compose run --rm api sh -c "pytest"
