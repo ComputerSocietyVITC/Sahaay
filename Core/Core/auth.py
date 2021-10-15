@@ -1,4 +1,5 @@
 from starlette.middleware.authentication import AuthenticationMiddleware
+from fastapi import requests
 import binascii
 import base64
 from starlette.authentication import AuthenticationBackend, AuthenticationError, SimpleUser, AuthCredentials
