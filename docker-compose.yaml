@@ -6,16 +6,18 @@ services:
     container_name: Dancing_Rose
     # Associates the directory called app with this
     # Docker container
+    command: python3 manage.py migrate
+    command: python3 manage.py collectstatic
+    command: uvicorn Core.asgi:fastapi --proxy-headers --host 0.0.0.0 --port 8080
+
     ports:
        - 8080:8080
     environment:
         - DB_URL=postgres://db/sahaayDB
-        - SECRET_KEY=4ab5be85c8c56eecdd547f7831979be83de58a6768d10a314f54cda4e4d67ffe
+         
     env_file:
         - ./Core/.env
-    command: python3 manage.py collectstatic --no-input
-    command: python3 manage.py migrate
-    command: uvicorn Core.asgi:fastapi --proxy-headers --host 0.0.0.0 --port 8080
+
     # Links the directory ./app to the docker volume
     # app 
     volumes:

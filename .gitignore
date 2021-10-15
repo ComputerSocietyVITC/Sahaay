@@ -136,3 +136,4 @@ ignore
 .vscode
 
 .env
+db.env
