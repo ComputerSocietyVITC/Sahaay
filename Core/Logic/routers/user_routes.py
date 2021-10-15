@@ -5,6 +5,10 @@ from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 
+<<<<<<< HEAD
+=======
+user_router = APIRouter()
+>>>>>>> ae327dacad4100eb7493c94a72a4e1d9a0b0d45d
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -19,6 +23,8 @@ class User(BaseModel):
 @userRouter.get("/hello-world")
 def Hello_world(request: Request):
     print(list(request.user))
+@user_router.get("/hello-world")
+def Hello_world():
     return HTMLResponse("Hello World")
 
 
