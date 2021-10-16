@@ -16,6 +16,8 @@ yarn global add expo-cli
 
 #### Development
 
+The entry point of the app is at `index.js`. Expo takes care of setting up react properly for each environment - android, iOS and web, and imports the root component at `components/App.jsx`
+
 Run `yarn dev` in your terminal, to start the live development server. The first time setup might take a moment, as webpack, and expo's android packager bundles the javascript. Subsequent reloads should be near-instant.
 
 You will then see, in your terminal, the
