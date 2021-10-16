@@ -1,11 +1,11 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+FROM python:3.9-buster
 LABEL IEEE ComSoc
 ENV PYTHONUNBUFFERED 1
 
 COPY requirements/dev.txt requirements.txt
-COPY requirements/sql.txt postgres.txt
+
 RUN pip install -r requirements.txt
-RUN pip install -r postgres.txt
+
 
 WORKDIR /Core
 COPY /design /design
