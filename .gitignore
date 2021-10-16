@@ -134,9 +134,6 @@ dmypy.json
 node_modules
 ignore
 .vscode
-package-lock.json
-yarn.lock
-
 
 #env
 db.env
@@ -144,4 +141,3 @@ db.env
 #dockerfiles
 Dockerfile
 docker-compose.yaml
-
