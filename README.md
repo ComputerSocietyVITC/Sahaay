@@ -42,9 +42,8 @@ All tests should be written before starting to create endpoint routes, to setup 
 All tests are stored in the [app/tests](https://github.com/ComputerSocietyVITC/Sahaay/tree/main/app/tests) folder with every separate test file (for every new testing family like user, tickets, etc.) named starting with `test_`. Similar naming convention is also followed for every test function, following standard pytest naming convention.
 
 While writing tests for unsafe requests(`POST`, `PATCH`) use fixtures which are to be defined in the [app/tests/fixtures](https://github.com/ComputerSocietyVITC/Sahaay/tree/main/app/tests/fixtures) folder.
-The fixtures are then imported in the [`conftest.py`](https://github.com/ComputerSocietyVITC/Sahaay/tree/main/app/tests/conftest.py) file. These fixtures are then used for test functions using the `@pytest.fixtures.usefixtures` decorator.
 
 The tests themselves are of two types:
 - **Dependency tests** : to test dependency functions like password hashing, backend processing, etc. These are standard python tests and require no special knowledge.
 - **Endpoint tests**: These are written using the `FastAPI testclient` library, which in itself uses libraries like starlette, asyncio and pytest-mongodb for setting up a asynchronous endpoint testing environment. 
-A sample endpoint test could be found [here](https://github.com/ComputerSocietyVITC/Sahaay/blob/User/app/tests/test_user.py).
+
