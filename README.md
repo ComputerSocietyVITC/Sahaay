@@ -12,6 +12,7 @@
 - Add the git repository to remote 
 				`git remote add origin <code-url>`
 - Pull code from the remote origin `git pull origin main`
+- Pull docker image from dockerhub using the tab: abhijithganesh/sahaay
 - Setup docker `docker-compose build`
 
 
@@ -22,7 +23,7 @@ To setup the live test server, run `docker-compose up -d` after building the doc
 	- Add the library in the format: 
 	- `'library name'>='used version',<'version rounded to first decimal '` 
 	- ex: `djangorestframework>=3.12.4,<3.13.0`
-- We will have a main `djangoapp` which will contain all user models.
+- We will have a main `fastapi` which will contain all user models.
 - For any functions/models, implement tests first in `.\tests\`.
 - Use proper headers and prefixes for commits and Pull Requests
 	- `[tests]` for testing changes
