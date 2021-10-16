@@ -15,7 +15,7 @@
 - Setup docker `docker-compose build`
 
 
-To setup the live test server, run `docker-compose up -d` after building the docker image. The live image will then be hosted at `https://localhost:3000`. The api could be tested using the FastAPI testing interface provided at `https://localhost:3000/docs`.
+To setup the live test server, run `docker-compose up -d` after building the docker image. The live image will then be hosted at `https://localhost:8000`. The api could be tested using the FastAPI testing interface provided at `https://localhost:8000/docs`.
 
 ## Contributing
 - If you want to use/install any library don't use pip install directly. Add the said library to `requirements.txt`.
