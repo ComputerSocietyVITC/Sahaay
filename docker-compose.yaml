@@ -2,7 +2,7 @@ version: "3.9"
 
 services: 
   api:
-    image: sahaay
+    image: abhijithganesh/sahaay
     container_name: Dancing_Rose
     # Docker container Name will be Dancing Rose
     
