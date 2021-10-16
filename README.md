@@ -13,13 +13,7 @@
 				`git remote add origin <code-url>`
 - Pull code from the remote origin `git pull origin main`
 - Setup docker `docker-compose build`
-- Run django command on docker image using the syntax 
-`docker-compose run --rm app sh -c "<your piece of code>"`
-ex:
-`docker-compose run --rm app sh -c "pytest"`
 
-To test a particular file (`test_user.py`), use 
-`docker-compose run --rm app sh -c "pytest tests\test_user.py"`
 
 To setup the live test server, run `docker-compose up -d` after building the docker image. The live image will then be hosted at `https://localhost:3000`. The api could be tested using the FastAPI testing interface provided at `https://localhost:3000/docs`.
 
