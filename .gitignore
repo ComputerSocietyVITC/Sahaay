@@ -135,5 +135,9 @@ node_modules
 ignore
 .vscode
 
-.env
+#env
 db.env
+
+#dockerfiles
+Dockerfile
+docker-compose.yaml
