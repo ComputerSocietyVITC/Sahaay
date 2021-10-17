@@ -1,1 +1,1 @@
-from .user_model import BaseModel
+from .user_abstraction import UserModel

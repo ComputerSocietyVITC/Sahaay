@@ -18,5 +18,4 @@ class PyObjectId(ObjectId):
         field_schema.update(type="string")
 
 
-class BaseModel(models.Model):
-    Tests = models.CharField(max_length=255)
+
