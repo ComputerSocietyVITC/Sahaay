@@ -20,7 +20,7 @@ class User(BaseModel):
 
 
 @user_router.get("/hello-world")
-def Hello_world():
+def hello_world():
     return HTMLResponse("Hello World")
 
 

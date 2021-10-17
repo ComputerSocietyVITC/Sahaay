@@ -1,3 +1,5 @@
+# Again highly deprecated code, can be scrapped
+
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder

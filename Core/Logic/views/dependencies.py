@@ -1,3 +1,8 @@
+# Can be scrapped, this basically deals with the enocding and auth middleware using fastAPi, 
+# but since Django handles that for us, we can scrap all the code here
+# not making any changes by myself so as to not break the code
+
+
 from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
 from Core.app_secrets import pwd_context, db, oauth2_scheme, SECRET_KEY, ALGORITHM
