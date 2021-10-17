@@ -1,0 +1,53 @@
+name: Feature
+description: Add/Implement/Suggest a new feature
+
+title: "[FEAT💻]<Your feature definition>"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this Feature idea!
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Description
+      description: Please describe the feature you want to be implemented here
+      placeholder: When I ... I should be able to ...
+    validations:
+      required: true
+  - type: textarea
+    id: what-is-currently-there
+    attributes:
+      label: What is there currently?
+      description: What solution/workflow is there in place of suggested feature.
+      placeholder: I expected ... when I ... 
+    validations:
+      required: false
+  - type: dropdown
+    id: code-base
+    attributes:
+      label: What does this feature affect?
+      multiple: true
+      options:
+        - UI/UX
+        - React App
+        - Docker
+        - CI tools/Testing
+        - Python Backend
+        - Database schemas
+  - type: dropdown
+    id: user-base
+    attributes:
+      label: Whom does this feature affect?
+      multiple: false
+      options:
+        - All users
+        - Staff
+        - Admin
+        - Normal User
+        - N/A
+  - type: textarea
+    id: multimedia
+    attributes:
+      label: Wireframes if UI change
+      description: Please copy and paste any wireframes/workflow diagrams for suggested feature.
