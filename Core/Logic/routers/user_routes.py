@@ -9,8 +9,6 @@ user_router = APIRouter()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-userRouter = APIRouter()
-
 
 class User(BaseModel):
     username: str
@@ -35,6 +33,6 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return user
 
 
-@userRouter.get("/items/")
-async def read_items(current_user: User = Depends(get_current_user)):
+@user_router.get("/items/")
+def read_items(current_user: User = Depends(get_current_user)):
     return current_user
