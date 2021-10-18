@@ -17,5 +17,5 @@ class UserModel(AbstractUser):
             reg_no = self.Reg_no
             self.UiD = reg_no[:4]+ ( str(uuid.uuid4().hex[:5]) if reg_edited == False else  self.UiD[-5:])
         
-        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
         
