@@ -4,12 +4,10 @@ from pathlib import Path
 from django.conf import settings
 from django.core.asgi import get_asgi_application
 
-from fastapi import Depends, FastAPI
-from fastapi.security import OAuth2PasswordBearer
-
-from starlette import middleware
+from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
+from starlette.authentication import AuthenticationBackend
 from starlette.responses import FileResponse
 from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
@@ -26,19 +24,18 @@ DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(
     Path(r"\design\static")
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-middleware = [Middleware(AuthenticationMiddleware, backend=BasicAuthBackend)]
+middleware = [Middleware(AuthenticationMiddleware, backend=BasicAuthBackend())]
 
 if settings.MOUNT_DJANGO:
     routes: list = [
         Mount("/Master-Application", app),
         Mount("/static", StaticFiles(directory=DESIGN_DIR), name="static"),
     ]
-    fastapi = FastAPI(routes=routes)
+    fastapi = FastAPI(routes=routes, middleware=middleware)
 
 else:
-    fastapi = FastAPI()
+    fastapi = FastAPI(middleware=middleware)
 
 
 @fastapi.get("/favicon.ico")
