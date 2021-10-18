@@ -1,40 +1,32 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Request
+from django.contrib.auth import authenticate
+from fastapi import APIRouter, Depends, Form, HTTPException, requests
 from fastapi.responses import HTMLResponse
-from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 user_router = APIRouter()
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-userRouter = APIRouter()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl = "./token")
 
 
-class User(BaseModel):
-    username: str
-    email: Optional[str] = None
-    full_name: Optional[str] = None
-    disabled: Optional[bool] = None
+@user_router.post("/token")
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    from Logic.models import UserModel
+    user_data = UserModel.objects.filter(username=form_data.username)
+    if not user_data:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    user = authenticate(username = form_data.username, password = form_data.password)
+    if not user:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+    return {"access_token": user.username, "token_type": "bearer"}
 
 
-@user_router.get("/hello-world")
-def Hello_world():
-    return HTMLResponse("Hello World")
+@user_router.post("/form-handler/")
+async def forms(username: str = Form(...), password: str = Form(...)):
+    return {"username":username}
 
 
-def fake_decode_token(token):
-    return User(
-        username=token + "fakedecoded", email="john@example.com", full_name="John Doe"
-    )
-
-
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = fake_decode_token(token)
-    return user
-
-
-@userRouter.get("/items/")
-async def read_items(current_user: User = Depends(get_current_user)):
-    return current_user
+@user_router.get("/current-user")
+def return_current_user(request):
+    return request.user
