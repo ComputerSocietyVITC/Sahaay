@@ -23,7 +23,7 @@ from .auth import BasicAuthBackend
 app = get_asgi_application()
 
 DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(
-    Path("design/static")
+    Path(r"\design\static")
 )
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -50,5 +50,5 @@ def get_logo():
 
 
 fastapi.include_router(
-    user_router, dependencies=[Depends(oauth2_scheme)], prefix="/routes"
+    user_router, prefix="/routes"
 )
