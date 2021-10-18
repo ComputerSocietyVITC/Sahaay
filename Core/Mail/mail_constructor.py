@@ -1,8 +1,5 @@
-import base64
-import binascii
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from os import PathLike
 from types import Mail
 from Core.Mail.mail_config import dev_smtp_config
 
