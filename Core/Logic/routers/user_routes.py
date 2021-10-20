@@ -1,40 +1,34 @@
-from typing import Optional
-
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
-from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel
+from django.contrib.auth import authenticate
+from fastapi import APIRouter, Depends, HTTPException, Request, Form
+from fastapi.security import HTTPBasicCredentials
+from fastapi.security.http import HTTPBasic
 
 user_router = APIRouter()
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-userRouter = APIRouter()
+security = HTTPBasic()
 
 
-class User(BaseModel):
-    username: str
-    email: Optional[str] = None
-    full_name: Optional[str] = None
-    disabled: Optional[bool] = None
+@user_router.post("/login")
+def login(request: Request, credentials: HTTPBasicCredentials = Depends(security)):
+    from Logic.models import UserModel
+
+    user_data = UserModel.objects.filter(username=credentials.username)
+    if not user_data:
+        raise HTTPException(
+            status_code=417, detail="Incorrect User name, the query was not found"
+        )
+
+    user = authenticate(username=credentials.username, password=credentials.password)
+    if not user:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    if user and request.method == "POST":
+        return request.headers
 
 
-@user_router.get("/hello-world")
-def hello_world():
-    return HTMLResponse("Hello World")
+@user_router.post("/form-handler/")
+async def forms(username: str = Form(...), password: str = Form(...)):
+    return {"username": username}
 
 
-def fake_decode_token(token):
-    return User(
-        username=token + "fakedecoded", email="john@example.com", full_name="John Doe"
-    )
-
-
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = fake_decode_token(token)
-    return user
-
-
-@userRouter.get("/items/")
-async def read_items(current_user: User = Depends(get_current_user)):
-    return current_user
+@user_router.get("/users/me")
+async def read_users_me(request: Request):
+    return request.user
