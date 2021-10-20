@@ -1,29 +1,27 @@
-from typing import Optional
-
 from django.contrib.auth import authenticate
-from fastapi import APIRouter, Depends, Form, HTTPException, status, Request
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from starlette import requests
+from fastapi import APIRouter, Depends, HTTPException, Request, Form
+from fastapi.security import HTTPBasicCredentials
+from fastapi.security.http import HTTPBasic
 
 user_router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="./token")
+security = HTTPBasic()
 
 
-@user_router.post("/token")
-def login(form_data: OAuth2PasswordRequestForm = Depends()):
+@user_router.post("/login")
+def login(request: Request, credentials: HTTPBasicCredentials = Depends(security)):
     from Logic.models import UserModel
 
-    user_data = UserModel.objects.filter(username=form_data.username)
+    user_data = UserModel.objects.filter(username=credentials.username)
     if not user_data:
         raise HTTPException(
-            status_code = 417, detail="Incorrect User name, the query was not found"
+            status_code=417, detail="Incorrect User name, the query was not found"
         )
 
-    user = authenticate(username = form_data.username, password=form_data.password)
+    user = authenticate(username=credentials.username, password=credentials.password)
     if not user:
-        raise HTTPException(status_code = 400, detail="Incorrect username or password")
-
-    return {"access_token": user.username, "token_type": "bearer"}
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    if user and request.method == "POST":
+        return request.headers
 
 
 @user_router.post("/form-handler/")
@@ -31,17 +29,6 @@ async def forms(username: str = Form(...), password: str = Form(...)):
     return {"username": username}
 
 
-async def get_current_user(request):
-    from Logic.models import UserModel
-    user = UserModel.objects.filter(username = request.user)
-    if not user:
-        raise HTTPException(
-            status_code= status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    return user
-
 @user_router.get("/users/me")
 async def read_users_me(request: Request):
-    return (request.user)
+    return request.user
