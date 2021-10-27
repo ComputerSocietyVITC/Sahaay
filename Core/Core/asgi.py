@@ -45,6 +45,4 @@ def get_logo():
     return FileResponse(path_to_file)
 
 
-fastapi.include_router(
-    user_router, prefix="/routes"
-)
+fastapi.include_router(user_router, prefix="/routes")
