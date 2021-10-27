@@ -6,19 +6,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Logic', '0003_auto_20211018_1513'),
+        ("Logic", "0003_auto_20211018_1513"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Issues',
+            name="Issues",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('Issue_Name', models.CharField(max_length=200)),
-                ('Issue_Tags', models.CharField(choices=[('TRI', 'Triage'), ('BUG', 'Bug'), ('DUP', 'Duplicate'), ('INP', 'In progress'), ('DEP', 'Dependencies')], max_length=255)),
-                ('Issue_description', models.TextField()),
-                ('Issue_Images', models.ImageField(upload_to='')),
-                ('Issue_URL', models.URLField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("Issue_Name", models.CharField(max_length=200)),
+                (
+                    "Issue_Tags",
+                    models.CharField(
+                        choices=[
+                            ("TRI", "Triage"),
+                            ("BUG", "Bug"),
+                            ("DUP", "Duplicate"),
+                            ("INP", "In progress"),
+                            ("DEP", "Dependencies"),
+                        ],
+                        max_length=255,
+                    ),
+                ),
+                ("Issue_description", models.TextField()),
+                ("Issue_Images", models.ImageField(upload_to="")),
+                ("Issue_URL", models.URLField()),
             ],
         ),
     ]

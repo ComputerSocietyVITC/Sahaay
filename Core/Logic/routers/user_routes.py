@@ -8,7 +8,9 @@ security = HTTPBasic()
 
 
 @user_router.post("/login")
-async def login(request: Request, credentials: HTTPBasicCredentials = Depends(security)):
+async def login(
+    request: Request, credentials: HTTPBasicCredentials = Depends(security)
+):
     from Logic.models import UserModel
 
     user_data = UserModel.objects.filter(username=credentials.username)
@@ -22,6 +24,7 @@ async def login(request: Request, credentials: HTTPBasicCredentials = Depends(se
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     if user and request.method == "POST":
         return request.headers
+
 
 @user_router.get("/users/me")
 async def read_users_me(request: Request):

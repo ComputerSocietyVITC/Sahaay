@@ -1,7 +1,7 @@
-TAG_CHOICES  = (
-    ('TRI', "Triage"),
-    ('BUG', "Bug"),
+TAG_CHOICES = (
+    ("TRI", "Triage"),
+    ("BUG", "Bug"),
     ("DUP", "Duplicate"),
     ("INP", "In progress"),
-    ("DEP", "Dependencies")
+    ("DEP", "Dependencies"),
 )
