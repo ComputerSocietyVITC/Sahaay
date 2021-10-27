@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate
-from fastapi import APIRouter, Depends, HTTPException, Request, Form
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.security import HTTPBasicCredentials
 from fastapi.security.http import HTTPBasic
 
@@ -8,7 +8,7 @@ security = HTTPBasic()
 
 
 @user_router.post("/login")
-def login(request: Request, credentials: HTTPBasicCredentials = Depends(security)):
+async def login(request: Request, credentials: HTTPBasicCredentials = Depends(security)):
     from Logic.models import UserModel
 
     user_data = UserModel.objects.filter(username=credentials.username)
@@ -22,12 +22,6 @@ def login(request: Request, credentials: HTTPBasicCredentials = Depends(security
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     if user and request.method == "POST":
         return request.headers
-
-
-@user_router.post("/form-handler/")
-async def forms(username: str = Form(...), password: str = Form(...)):
-    return {"username": username}
-
 
 @user_router.get("/users/me")
 async def read_users_me(request: Request):
