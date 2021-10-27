@@ -8,3 +8,6 @@ class Issues(models.Model):
     Issue_description = models.TextField()
     Issue_Images = models.ImageField()
     Issue_URL = models.URLField()
+
+    class Meta:
+        verbose_name_plural = "Issues"
