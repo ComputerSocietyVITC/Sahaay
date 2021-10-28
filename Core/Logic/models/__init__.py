@@ -1,2 +1,2 @@
 from .user_abstraction import UserModel
-from .issues import Issues
+from .issues import Issues, CommentsTable
