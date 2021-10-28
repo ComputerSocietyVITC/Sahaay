@@ -9,7 +9,7 @@ class CommentsTable(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     Images = models.ImageField()
     Reactions = MultiSelectField(max_length=20, blank=True, choices=REACTIONS)
-    User = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    User = models.ForeignKey(UserModel, on_delete=models.CASCADE, null = True)
 
 
 class Issues(models.Model):
@@ -18,14 +18,15 @@ class Issues(models.Model):
     Issue_description = models.TextField()
     Issue_Images = models.ImageField()
     Department = models.CharField(
-        max_length=200, null=False, blank=False, choices=DEPARTMENTS, default = "Admin"
+        max_length=200, null=False, blank=True, choices=DEPARTMENTS, default = "Admin"
     )
     Date_of_Creation = models.DateTimeField(auto_now=True)
     Priority = models.CharField(max_length=100, choices=PRIORITY_CHOICES)
-    isActive = models.BooleanField(default=True, null=False, blank=False, editable=True)
-    LinkedIssue = models.ForeignKey("self", on_delete=models.DO_NOTHING)
+    isActive = models.BooleanField(default=True, null=False, blank=True, editable=True)
+    LinkedIssue = models.ForeignKey("self", on_delete=models.DO_NOTHING, null = True, blank=True)
     User = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-    Comments = models.ForeignKey(CommentsTable, on_delete=models.DO_NOTHING, default="")
+    Comments = models.ForeignKey(CommentsTable, on_delete=models.DO_NOTHING, default="", null = True, blank=True)
 
     class Meta:
         verbose_name_plural = "Issues"
+
