@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'multiselectfield'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
-MOUNT_DJANGO = False
+MOUNT_DJANGO = True
 PSQL = False
 
 

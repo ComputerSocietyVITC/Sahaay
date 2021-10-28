@@ -7,7 +7,6 @@ from django.core.asgi import get_asgi_application
 from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
-from starlette.authentication import AuthenticationBackend
 from starlette.responses import FileResponse
 from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
@@ -46,6 +45,4 @@ def get_logo():
     return FileResponse(path_to_file)
 
 
-fastapi.include_router(
-    user_router, prefix="/routes"
-)
+fastapi.include_router(user_router, prefix="/routes")
