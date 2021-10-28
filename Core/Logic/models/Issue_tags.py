@@ -26,4 +26,8 @@ REACTIONS = (
     ("🥳", "🥳"),
 )
 
-DEPARTMENTS = ("ADM", "Administrator")
+DEPARTMENTS = (
+    (
+    "ADM", "Administrator")
+    ,
+    ("MGM", "Management"))

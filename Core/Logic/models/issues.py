@@ -18,7 +18,7 @@ class Issues(models.Model):
     Issue_description = models.TextField()
     Issue_Images = models.ImageField()
     Department = models.CharField(
-        max_length=200, null=False, blank=False, choices=DEPARTMENTS
+        max_length=200, null=False, blank=False, choices=DEPARTMENTS, default = "Admin"
     )
     Date_of_Creation = models.DateTimeField(auto_now=True)
     Priority = models.CharField(max_length=100, choices=PRIORITY_CHOICES)
