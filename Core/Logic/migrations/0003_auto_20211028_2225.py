@@ -8,18 +8,26 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Logic', '0002_alter_issues_comments'),
+        ("Logic", "0002_alter_issues_comments"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='commentstable',
-            name='User',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="commentstable",
+            name="User",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='issues',
-            name='LinkedIssue',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='Logic.issues'),
+            model_name="issues",
+            name="LinkedIssue",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                to="Logic.issues",
+            ),
         ),
     ]
