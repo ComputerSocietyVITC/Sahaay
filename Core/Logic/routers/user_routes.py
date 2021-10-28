@@ -8,7 +8,7 @@ security = HTTPBasic()
 
 
 @user_router.post("/login")
-async def login(
+def login(
     request: Request, credentials: HTTPBasicCredentials = Depends(security)
 ):
     from Logic.models import UserModel
