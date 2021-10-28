@@ -9,8 +9,6 @@ from starlette.authentication import (
 
 
 class BasicAuthBackend(AuthenticationBackend):
-    from django.contrib.auth import authenticate
-
     async def authenticate(self, request):
         if "Authorization" not in request.headers:
             return None
