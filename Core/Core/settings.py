@@ -85,17 +85,24 @@ MOUNT_DATABASE = False
 MOUNT_DJANGO = False
 PSQL = False
 CACHING_AND_BACKUP = False
-GRAPH = False
+GRAPH = True
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "Database/db.sql",
+    }
+}
+
 
 if MOUNT_DATABASE != True:
-    DATABASES = {
+    DATABASES.update({
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "Database/db.sqlite3",
         }
-    }
+    })
 if PSQL == True:
-    DATABASES = {
+    DATABASES.update({
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "postges",
@@ -104,13 +111,17 @@ if PSQL == True:
             "HOST": "Testing",
             "PORT": 5432,
         }
-    }
+    })
 
 if GRAPH:
-    ...
+    NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL','bolt://username:password@localhost:7687')
+    NEOMODEL_SIGNALS = True
+    NEOMODEL_FORCE_TIMEZONE = False
+    NEOMODEL_ENCRYPTED_CONNECTION = True
+    NEOMODEL_MAX_POOL_SIZE = 50
 
 if CACHING_AND_BACKUP:
-    DATABASES = {
+    DATABASES.update({
         "cassandra": {
             "ENGINE": "django_cassandra_engine",
             "NAME": "test",
@@ -126,12 +137,6 @@ if CACHING_AND_BACKUP:
                 }
             },
         }
-    }
+    })
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "Database/db.sql",
-    }
-}
