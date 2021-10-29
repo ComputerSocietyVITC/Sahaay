@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'multiselectfield'
+    "multiselectfield",
+    "django_neomodel",
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
 MOUNT_DJANGO = False
 PSQL = False
-
+CACHING_AND_BACKUP = False
+GRAPH = False
 
 if MOUNT_DATABASE != True:
     DATABASES = {
@@ -92,7 +94,7 @@ if MOUNT_DATABASE != True:
             "NAME": BASE_DIR / "Database/db.sqlite3",
         }
     }
-elif PSQL == True:
+if PSQL == True:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -104,11 +106,32 @@ elif PSQL == True:
         }
     }
 
+if GRAPH:
+    ...
 
-else:
+if CACHING_AND_BACKUP:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "Database/db.sql",
+        "cassandra": {
+            "ENGINE": "django_cassandra_engine",
+            "NAME": "test",
+            "TEST_NAME": "djassandra",
+            "USER": "cassandra",
+            "PASSWORD": "cassandra",
+            "HOST": "localhost",
+            "PORT": "9042",
+            "OPTIONS": {
+                "replication": {
+                    "strategy_class": "SimpleStrategy",
+                    "replication_factor": 1,
+                }
+            },
         }
     }
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "Database/db.sql",
+    }
+}
