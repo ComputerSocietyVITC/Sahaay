@@ -82,7 +82,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
-MOUNT_DJANGO = False
+MOUNT_DJANGO = True
 PSQL = False
 CACHING_AND_BACKUP = False
 GRAPH = True
@@ -92,6 +92,8 @@ DATABASES = {
         "NAME": BASE_DIR / "Database/db.sql",
     }
 }
+
+#Postgres --> Distinct Sqlite
 
 
 if MOUNT_DATABASE != True:
