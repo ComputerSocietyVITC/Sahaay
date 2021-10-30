@@ -4,7 +4,7 @@ from pathlib import Path
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.core.asgi import get_asgi_application
-from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.security.http import HTTPBasic, HTTPBasicCredentials
 from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -42,30 +42,27 @@ else:
 @fastapi.get("/favicon.ico")
 def get_logo():
     path_to_file = str(Path(__file__).resolve().parent.parent.parent) + str(
-        r"\design\logo\logo.svg"
+        "/design/logo/logo.svg"
     )
     return FileResponse(path_to_file)
 
+fastapi.include_router(user_router,prefix="/routes")
+fastapi.include_router(admin_router,prefix="/administrator")
 
-
-@fastapi.get("/login")
+@fastapi.post("/login")
 def login(
-    request:Request,credentials: HTTPBasicCredentials = Depends(security), 
+    request: Request, credentials: HTTPBasicCredentials = Depends(security)
 ):
     from Logic.models import UserModel
+
     user_data = UserModel.objects.filter(username=credentials.username)
     if not user_data:
-         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='Incorrect email or password.',
-            headers={'WWW-Authenticate': 'Basic'},
+        raise HTTPException(
+            status_code=417, detail="Incorrect User name, the query was not found"
         )
 
     user = authenticate(username=credentials.username, password=credentials.password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
-    if user:
+    if user and request.method == "POST":
         return request.user
-
-fastapi.include_router(user_router,prefix="/routes")
-fastapi.include_router(admin_router,prefix="/administrator")
