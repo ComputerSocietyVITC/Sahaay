@@ -20,8 +20,10 @@ def HelloWorld():
 
 @admin.get("/Show-all-departments")
 def depts():
-    from Logic.models import DEPARTMENTS
-    return dict(DEPARTMENTS)
+    from Logic.models import read_file
+    DIR = str(Path(__file__).resolve().parent.parent) + r"\models\fixtures"
+    data = read_file(DIR + '\dept.json')
+    return data
 
 @admin.post("/add-department")
 def post_dept(request: Request, param: Department): 
@@ -34,7 +36,6 @@ def post_dept(request: Request, param: Department):
             write_file(DIR + '\dept.json', data)
             return f"The following data has been added. {[param.abbreviation, param.department]}"
 
-
 @admin.delete("/department")
 def del_dept(request: Request, param: delDepartment):
     from Logic.models import read_file, write_file, UserModel
@@ -45,6 +46,5 @@ def del_dept(request: Request, param: delDepartment):
             for i in data:
                 if i[1] == param.department:
                     data.remove(i)
-            print(data)
             write_file(DIR + '\dept.json', data)
             return f"The following data has been removed. {[param.department]}"
