@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+FROM debian:latest
 LABEL IEEE ComSoc
 ENV PYTHONUNBUFFERED 1
 
@@ -12,4 +12,4 @@ COPY /design /design
 COPY /Core /Core
 
 
-EXPOSE 3000
+EXPOSE 8080
