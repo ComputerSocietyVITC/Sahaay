@@ -22,7 +22,7 @@ security = HTTPBasic()
 app = get_asgi_application()
 
 DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(
-    Path(r"\design\static")
+    Path(r"/design/static")
 )
 
 
