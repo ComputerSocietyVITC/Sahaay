@@ -115,13 +115,6 @@ if PSQL == True:
         }
     })
 
-if GRAPH:
-    NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL','bolt://username:password@localhost:7687')
-    NEOMODEL_SIGNALS = True
-    NEOMODEL_FORCE_TIMEZONE = False
-    NEOMODEL_ENCRYPTED_CONNECTION = True
-    NEOMODEL_MAX_POOL_SIZE = 50
-
 if CACHING_AND_BACKUP:
     DATABASES.update({
         "cassandra": {
