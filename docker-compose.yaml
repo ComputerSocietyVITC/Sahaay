@@ -7,8 +7,8 @@ services:
     # Docker container Name will be Dancing Rose
     
     #Environment File
-    env_file:
-       - Core/.env
+    # env_file:
+    #    - Core/.env
     
     #commands which will be executed
     command: python3 manage.py migrate
