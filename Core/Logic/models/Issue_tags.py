@@ -1,33 +1,9 @@
-TAG_CHOICES = (
-    ("TRI", "Triage"),
-    ("BUG", "Bug"),
-    ("DUP", "Duplicate"),
-    ("INP", "In progress"),
-    ("DEP", "Dependencies"),
-)
+from os import read
+from Logic.models.options import read_file
+from pathlib import Path
+DIR = str(Path(__file__).resolve().parent.parent) + r"/models/fixtures"
 
-PRIORITY_CHOICES = (
-    ("HIG", "High"),
-    ("MOD", "Moderate"),
-    ("SEV", "Severe"),
-    ("LOW", "Low"),
-    ("ML", "Moderately Low"),
-    ("EMER", "Emergency"),
-)
-
-REACTIONS = (
-    ("👍", "👍"),
-    ("🚀", "🚀"),
-    ("☀️", "☀️"),
-    ("📣", "📣"),
-    ("👀", "👀"),
-    ("👍", "👍"),
-    ("👎", "👎"),
-    ("🥳", "🥳"),
-)
-
-DEPARTMENTS = (
-    (
-    "ADM", "Administrator")
-    ,
-    ("MGM", "Management"))
+TAG_CHOICES = read_file(DIR + '/choices.json')
+PRIORITY_CHOICES = read_file(DIR + '/priority.json')
+REACTIONS = read_file(DIR + './rxn.json')
+DEPARTMENTS = read_file(DIR + './dept.json')

@@ -1,55 +1,55 @@
 from pathlib import Path
 import json
 
-TAG_CHOICES = (
-    ("TRI", "Triage"),
-    ("BUG", "Bug"),
-    ("DUP", "Duplicate"),
-    ("INP", "In progress"),
-    ("DEP", "Dependencies"),
-)
+# TAG_CHOICES = (
+#     ("TRI", "Triage"),
+#     ("BUG", "Bug"),
+#     ("DUP", "Duplicate"),
+#     ("INP", "In progress"),
+#     ("DEP", "Dependencies"),
+# )
 
-PATH = Path(__file__).resolve().parent
+# PATH = Path(__file__).resolve().parent
 
-with open(PATH/"fixtures/choices.json","w") as fileObj:
-    json.dump((TAG_CHOICES), fileObj)
+# with open(PATH/"fixtures/choices.json","w") as fileObj:
+#     json.dump((TAG_CHOICES), fileObj)
 
 
-PRIORITY_CHOICES = (
-    ("HIG", "High"),
-    ("MOD", "Moderate"),
-    ("SEV", "Severe"),
-    ("LOW", "Low"),
-    ("ML", "Moderately Low"),
-    ("EMER", "Emergency"),
-)
+# PRIORITY_CHOICES = (
+#     ("HIG", "High"),
+#     ("MOD", "Moderate"),
+#     ("SEV", "Severe"),
+#     ("LOW", "Low"),
+#     ("ML", "Moderately Low"),
+#     ("EMER", "Emergency"),
+# )
 
-with open(PATH/"fixtures/priority.json", "w") as fileObj:
-    json.dump(PRIORITY_CHOICES, fileObj)
+# with open(PATH/"fixtures/priority.json", "w") as fileObj:
+#     json.dump(PRIORITY_CHOICES, fileObj)
 
-REACTIONS = (
-    ("👍", "👍"),
-    ("🚀", "🚀"),
-    ("☀️", "☀️"),
-    ("📣", "📣"),
-    ("👀", "👀"),
-    ("👍", "👍"),
-    ("👎", "👎"),
-    ("🥳", "🥳"),
-)
+# REACTIONS = (
+#     ("👍", "👍"),
+#     ("🚀", "🚀"),
+#     ("☀️", "☀️"),
+#     ("📣", "📣"),
+#     ("👀", "👀"),
+#     ("👍", "👍"),
+#     ("👎", "👎"),
+#     ("🥳", "🥳"),
+# )
 
-with open(PATH/"fixtures/rxn.json", "w") as fileObj:
-    json.dump((REACTIONS), fileObj)
+# with open(PATH/"fixtures/rxn.json", "w") as fileObj:
+#     json.dump((REACTIONS), fileObj)
 
-DEPARTMENTS = [
-    (
-    "ADM", "Administrator")
-    ,
-    ("MGM", "Management")
-]
+# DEPARTMENTS = [
+#     (
+#     "ADM", "Administrator")
+#     ,
+#     ("MGM", "Management")
+# ]
 
-with open(PATH/"fixtures/dept.json", "w") as fileObj:
-    json.dump((DEPARTMENTS), fileObj)
+# with open(PATH/"fixtures/dept.json", "w") as fileObj:
+#     json.dump((DEPARTMENTS), fileObj)
 
 
 #Functions for read-objects
