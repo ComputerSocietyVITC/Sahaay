@@ -22,7 +22,7 @@ security = HTTPBasic()
 app = get_asgi_application()
 
 DESIGN_DIR = str(Path(__file__).resolve().parent.parent.parent) + str(
-    Path(r"\design\static")
+    Path(r"/design/static")
 )
 
 
@@ -46,8 +46,7 @@ def get_logo():
     )
     return FileResponse(path_to_file)
 
-fastapi.include_router(user_router,prefix="/routes")
-fastapi.include_router(admin_router,prefix="/administrator")
+
 
 @fastapi.post("/login")
 def login(
@@ -64,5 +63,7 @@ def login(
     user = authenticate(username=credentials.username, password=credentials.password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
-    if user and request.method == "POST":
-        return request.user
+    # if user and request.method == "POST":
+    #     return request.user
+fastapi.include_router(user_router,prefix="/routes")
+fastapi.include_router(admin_router,prefix="/administrator")
