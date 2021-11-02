@@ -1,4 +1,3 @@
-from os import read
 from Logic.models.options import read_file
 from pathlib import Path
 DIR = str(Path(__file__).resolve().parent.parent) + r"/models/fixtures"
