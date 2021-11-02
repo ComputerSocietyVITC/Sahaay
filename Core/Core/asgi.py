@@ -14,7 +14,7 @@ from starlette.staticfiles import StaticFiles
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Core.settings")
 
-from Logic.routers import admin_router, user_router
+from Logic.routers import admin_router, user_router, issue_router, comment_router
 
 from .auth import BasicAuthBackend
 
@@ -48,7 +48,7 @@ def get_logo():
 
 
 
-@fastapi.post("/login")
+@fastapi.get("/login")
 def login(
     request: Request, credentials: HTTPBasicCredentials = Depends(security)
 ):
@@ -66,4 +66,6 @@ def login(
     # if user and request.method == "POST":
     #     return request.user
 fastapi.include_router(user_router,prefix="/routes")
+fastapi.include_router(issue_router, prefix="/issues_endpoint")
 fastapi.include_router(admin_router,prefix="/administrator")
+fastapi.include_router(comment_router, prefix = "/comments")
