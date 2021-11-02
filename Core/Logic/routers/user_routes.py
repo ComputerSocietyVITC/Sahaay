@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Request
 from pydantic.main import BaseModel
 from pydantic.types import UUID4
-import starlette
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 from pydantic import EmailStr
 
