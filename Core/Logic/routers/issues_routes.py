@@ -1,5 +1,3 @@
-from typing import Optional, List
-from typing import Text
 from starlette.status import HTTP_200_OK, HTTP_202_ACCEPTED, HTTP_404_NOT_FOUND
 from fastapi import Request, APIRouter, File
 from fastapi.datastructures import UploadFile
@@ -56,7 +54,7 @@ def post_new_issue(request: Request, table: IssueTableNew):
         User_id=UserModel.objects.get(username=request.user.username).id,
     )
     instance.save()
-    return f"Instance was saved! HTTP {HTTP_200_OK}"
+    return {HTTP_200_OK:"New issue was added"}
 
 
 @issues.delete("/delete-issues")
@@ -65,28 +63,26 @@ def delete_an_issue(id: str):
     try:
         instance = Issues.objects.get(uniqueID=id)
         instance.delete()
-        return (
-            f"Instance of the model was deleted successfully, HTTP {HTTP_202_ACCEPTED}"
-        )
+        return {HTTP_202_ACCEPTED : f"{id} was deleted"}
     except Exception:
-        return f"Instance does not exist! HTTP {HTTP_404_NOT_FOUND}"
+        return {HTTP_404_NOT_FOUND:"Image not added"}
 
 
-@issues.post("/add-image/")
+@issues.post("/add-image")
 def create_file(unique_id: str, file: UploadFile = File(...)):
     from Logic.models import Issues
     try:
         instance = Issues.objects.get(uniqueID = unique_id)
         instance.Issues_image = file.file.read()
-        instance.save()
-        return f"Image was succesfully added"
+        instance.save() #Images aren't being loaded on to POSTGRES
+        return {HTTP_202_ACCEPTED:"New image was added."}
     except Exception:
-        return f"User not found! HTTP {HTTP_404_NOT_FOUND}"
+        return {HTTP_404_NOT_FOUND:"Image not added"}
 
 
 @issues.post("/post-linked-issue")
 def post_a_linked_issue(issuesTable: IssueTable):
-    from Logic.models import Issues, CommentsTable, UserModel
+    from Logic.models import Issues, UserModel
     if len(Issues.objects.filter(uniqueID=issuesTable.LinkedIssue_id)):
         instance = Issues(
             Issue_Name=issuesTable.Issue_Name,
@@ -98,8 +94,8 @@ def post_a_linked_issue(issuesTable: IssueTable):
             LinkedIssue_id=Issues.objects.get(uniqueID=issuesTable.LinkedIssue_id).id,
         )
         instance.save()
-        return f"Instance was saved! HTTP {HTTP_200_OK}"
+        return {HTTP_200_OK:"New issue was saved."}
 
     else:
-        return f"Instance not found"
+        return {HTTP_404_NOT_FOUND:"Instance not found"}
 

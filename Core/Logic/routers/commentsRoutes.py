@@ -1,6 +1,6 @@
 from fastapi import Request, APIRouter
 from pydantic.main import BaseModel
-from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND
+from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_202_ACCEPTED
 
 
 class CommentsTable(BaseModel):
@@ -29,7 +29,7 @@ def new_comment(request: Request, comment: CommentsTable):
         Reactions = comment.Reactions[0]
     )
     instance.save()
-    return f"New Comment was made! HTTP {HTTP_200_OK}"
+    return {HTTP_200_OK: "New comment was added."}
 
 @comments.put("/edit-comment")
 def edit_comment(comments: editComments, request: Request, id: str):
@@ -39,7 +39,7 @@ def edit_comment(comments: editComments, request: Request, id: str):
         instance.comments = comments.Comment
         instance.reactions = comments.Reactions[0]
         instance.save()
-        return f"Instance was saved! HTTP {HTTP_200_OK}"
+        return  {HTTP_202_ACCEPTED : f"{id} was deleted"}
     except Exception:
-        return f"Instance not found! HTTP {HTTP_404_NOT_FOUND}"
+        return {HTTP_404_NOT_FOUND:"Image not added"}
 

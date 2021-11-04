@@ -49,7 +49,7 @@ def create_user(request: Request, user: PydanticUserModel):
         )
         pseudouser.set_password(user.password)
         pseudouser.save()
-        return f"User got created! {HTTP_201_CREATED}"
+        return HTTP_201_CREATED
 
 
 @user_router.delete("/user")
@@ -64,7 +64,7 @@ def delete_user(request: Request, user: DeleteUserModel):
             pseudouser.delete()
             return f"The given user was deleted: {user.Reg_no}"
     else:
-        return f"User not found! HTTP {HTTP_404_NOT_FOUND}"
+        return HTTP_404_NOT_FOUND
 
 
 @user_router.put("/user")
