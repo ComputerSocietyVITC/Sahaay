@@ -1,5 +1,3 @@
-from starlette.middleware.authentication import AuthenticationMiddleware
-from fastapi import requests
 import binascii
 import base64
 from starlette.authentication import (
@@ -13,7 +11,7 @@ from starlette.authentication import (
 class BasicAuthBackend(AuthenticationBackend):
     async def authenticate(self, request):
         if "Authorization" not in request.headers:
-            return
+            return None
 
         auth = request.headers["Authorization"]
         try:
@@ -25,5 +23,4 @@ class BasicAuthBackend(AuthenticationBackend):
             raise AuthenticationError("Invalid basic auth credentials")
 
         username, _, password = decoded.partition(":")
-        # TODO: You'd want to verify the username and password here.
         return AuthCredentials(["authenticated"]), SimpleUser(username)

@@ -1,6 +1,8 @@
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
+config = load_dotenv(".env")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTHOR = "ComputerSociety - VIT Chennai"
@@ -20,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "multiselectfield",
 ]
 
 MIDDLEWARE = [
@@ -81,18 +84,28 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
 MOUNT_DJANGO = True
-PSQL = True
+PSQL = False
+CACHING_AND_BACKUP = False
+GRAPH = True
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "Database/db.sql",
+    }
+}
+
+#Postgres --> Distinct Sqlite
 
 
 if MOUNT_DATABASE != True:
-    DATABASES = {
+    DATABASES.update({
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "Database/db.sqlite3",
         }
-    }
-elif PSQL == True:
-    DATABASES = {
+    })
+if PSQL == True:
+    DATABASES.update({
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "postges",
@@ -101,13 +114,25 @@ elif PSQL == True:
             "HOST": "Testing",
             "PORT": 5432,
         }
-    }
+    })
 
-
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "Database/db.sql",
+if CACHING_AND_BACKUP:
+    DATABASES.update({
+        "cassandra": {
+            "ENGINE": "django_cassandra_engine",
+            "NAME": "test",
+            "TEST_NAME": "djassandra",
+            "USER": "cassandra",
+            "PASSWORD": "cassandra",
+            "HOST": "localhost",
+            "PORT": "9042",
+            "OPTIONS": {
+                "replication": {
+                    "strategy_class": "SimpleStrategy",
+                    "replication_factor": 1,
+                }
+            },
         }
-    }
+    })
+
+
