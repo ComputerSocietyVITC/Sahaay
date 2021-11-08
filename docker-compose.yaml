@@ -4,7 +4,7 @@ services:
   api:
     image: abhijithganesh/sahaay
     container_name: Jumping_Jose
-    # Docker container Name will be Dancing Rose
+    # Docker container Name will be Jumping Jose
     
     #Environment File
     # env_file:
