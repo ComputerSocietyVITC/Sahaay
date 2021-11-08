@@ -18,8 +18,7 @@ from .logging_conf import LogConfig
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Core.settings")
 
-from Logic.routers import (admin_router, comment_router, issue_router,
-                           user_router)
+from Logic.routers import admin_router, comment_router, issue_router, user_router
 
 from .auth import BasicAuthBackend
 
