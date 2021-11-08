@@ -136,4 +136,3 @@ if CACHING_AND_BACKUP:
     })
 
 
-MEDIA_URL = "/media/"
