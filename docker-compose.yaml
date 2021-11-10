@@ -3,6 +3,7 @@ version: "3.9"
 services: 
   fastapi:
     image: abhijithganesh/sahaay
+    #change it to build: .
     container_name: Jumping_Jose
     # Docker container Name will be Dancing Rose
     
@@ -48,7 +49,9 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    #Add further yml files here
+     
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - '--storage.tsdb.path=/prometheus'
@@ -70,6 +73,7 @@ services:
       - 3000:3000
     volumes:
        - ./grafana/provisioning/datasources/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+        #Add dashboards to the volumes
     env_file:
       - ./config.monitoring
 
