@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 VirtualEnviron
-
+test-prometheus
 # Distribution / packaging
 .Python
 build/
