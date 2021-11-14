@@ -14,11 +14,17 @@ dnspython==2.1.0
 email-validator==1.1.3
 fastapi==0.70.0
 frozenlist==1.2.0
+gunicorn==20.1.0
 h11==0.12.0
+h2==4.1.0
+hpack==4.0.0
+hypercorn==0.12.0
+hyperframe==6.0.1
 idna==3.3
 multidict==5.2.0
+Pillow==8.4.0
+priority==2.0.0
 prometheus-client==0.11.0
-pillow==8.4.0
 psycopg2-binary==2.9.1
 pydantic==1.8.2
 python-dotenv==0.19.1
@@ -30,6 +36,8 @@ sqlparse==0.4.2
 starlette==0.16.0
 starlette-exporter==0.11.0
 starlette-prometheus==0.8.0
+toml==0.10.2
 typing-extensions==3.10.0.2
 uvicorn==0.15.0
+wsproto==1.0.0
 yarl==1.7.2
