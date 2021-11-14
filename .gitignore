@@ -137,7 +137,11 @@ ignore
 
 #env
 db.env
+env
 
 #dockerfiles
 Dockerfile
 docker-compose.yaml
+
+#grafana
+config.monitoring
