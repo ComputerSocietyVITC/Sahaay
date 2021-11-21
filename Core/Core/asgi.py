@@ -13,15 +13,16 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.responses import FileResponse
 from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
+from starlette_prometheus import PrometheusMiddleware, metrics
 
 from .logging_conf import LogConfig
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Core.settings")
 
-from Logic.routers import admin_router, comment_router, issue_router, user_router
+from Logic.routers import (admin_router, comment_router, issue_router,
+                           user_router)
 
 from .auth import BasicAuthBackend
-
 
 dictConfig(LogConfig().dict())
 logger = logging.getLogger("sahaay_app")
@@ -73,6 +74,8 @@ def login(request: Request, credentials: HTTPBasicCredentials = Depends(security
     #     return request.user
 
 
+fastapi.add_middleware(PrometheusMiddleware)
+fastapi.add_route("/metrics", metrics)
 fastapi.include_router(user_router, prefix="/routes")
 fastapi.include_router(issue_router, prefix="/issues_endpoint")
 fastapi.include_router(admin_router, prefix="/administrator")

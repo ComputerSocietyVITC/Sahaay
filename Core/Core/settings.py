@@ -108,10 +108,10 @@ if PSQL == True:
     DATABASES.update({
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": "postges",
+            "NAME": os.environ.get("POSTGRES_DB"),
             "USER": os.environ.get("POSTGRES_USER"),
             "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-            "HOST": "Testing",
+            "HOST": os.environ.get("POSTGRES_HOST"),
             "PORT": 5432,
         }
     })
@@ -135,5 +135,3 @@ if CACHING_AND_BACKUP:
         }
     })
 
-
-MEDIA_URL = "/media/"
