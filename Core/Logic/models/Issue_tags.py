@@ -1,6 +1,6 @@
 from Logic.models.options import read_file
 from pathlib import Path
-DIR = str(Path(__file__).resolve().parent.parent) + r"/models/fixtures"
+DIR = str(Path(__file__).resolve().parent) + str(Path(r"/fixtures"))
 
 TAG_CHOICES = read_file(DIR + '/choices.json')
 PRIORITY_CHOICES = read_file(DIR + '/priority.json')
