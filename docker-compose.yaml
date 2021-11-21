@@ -70,8 +70,7 @@ services:
     volumes:
        - ./grafana/provisioning/datasources/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
         #Add dashboards to the volumes
-    env_file:
-      - ./config.monitoring
+   
   
 volumes:
     taskdb:
