@@ -40,7 +40,7 @@ def post_department(request: Request, param: Department):
         return f"HTTP {HTTP_401_UNAUTHORIZED}! request is unauthorized "
 
 
-@admin.delete("/update-department")
+@admin.delete("/delete-department")
 def delete_department(request: Request, param: delDepartment):
     from Logic.models import read_file, write_file, UserModel
 

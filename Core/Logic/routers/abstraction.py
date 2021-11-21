@@ -73,3 +73,19 @@ def create_linked_issue(issuesTable: Optional[IssueTable]):
             LinkedIssue_id=Issues.objects.get(uniqueID=issuesTable.LinkedIssue_id).id,
         )
     instance.save()
+
+##Comments
+class CommentsTable(BaseModel):
+    Comment: str
+    uniqueId: str
+    Reactions: list[str]
+
+def Create_new_comment(request:Request, comment: Optional[CommentsTable]):
+    from Logic.models import CommentsTable, UserModel
+    instance = CommentsTable(
+        uniqueID = comment.uniqueId,
+        comment = comment.Comment,
+        User_id = UserModel.objects.get(username = request.user.username).id,
+        Reactions = comment.Reactions[0]
+    )
+    instance.save()
