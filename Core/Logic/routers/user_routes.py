@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Request
 from pydantic.main import BaseModel
-from pydantic.types import UUID4
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 from pydantic import EmailStr
+from .abstraction import create_user_model, patch_user_model
 
 user_router = APIRouter()
 
@@ -40,15 +40,7 @@ def create_user(request: Request, user: PydanticUserModel):
     if request.user.is_authenticated and UserModel.objects.get(
         username=request.user.username
     ):
-        pseudouser = UserModel(
-            username=user.username,
-            first_name=user.first_name,
-            last_name=user.last_name,
-            email=user.email,
-            Reg_no=user.Reg_no,
-        )
-        pseudouser.set_password(user.password)
-        pseudouser.save()
+        create_user_model(user)
         return HTTP_201_CREATED
 
 
@@ -67,34 +59,17 @@ def delete_user(request: Request, user: DeleteUserModel):
         return HTTP_404_NOT_FOUND
 
 
-@user_router.put("/user")
+@user_router.patch("/user")
 def update_user(request: Request, user: PydanticUserModel):
     from Logic.models import UserModel
 
-    try:
-        pseudouser = UserModel.objects.get(Reg_no=user.Reg_no)
-        if pseudouser and (
-            request.user.username == pseudouser.username
-            or UserModel.objects.get(username=request.user.username).is_staff
-        ):
-            pseudouser.first_name = user.first_name
-            pseudouser.last_name = user.last_name
-            pseudouser.email = user.email
-            pseudouser.username = user.username
-            pseudouser.set_password(user.password)
-            pseudouser.save()
-            return f"{pseudouser} was saved"
-    except Exception:
-        val = UserModel(
-            username=user.username,
-            first_name=user.first_name,
-            last_name=user.last_name,
-            email=user.email,
-            Reg_no=user.Reg_no,
-        )
-        val.set_password(user.password)
-        val.save()
-        return f"The user {val} was saved! HTTP {HTTP_200_OK}"
+    pseudouser = UserModel.objects.get(Reg_no=user.Reg_no)
+    if pseudouser and (
+        request.user.username == pseudouser.username
+        or UserModel.objects.get(username=request.user.username).is_staff
+    ):
+        patch_user_model(pseudouser, user)
+    return {HTTP_200_OK:f"{pseudouser}"}
 
 
 @user_router.get("/user/{user_id}")
