@@ -1,7 +1,7 @@
 from fastapi import Request, APIRouter
 from pydantic.main import BaseModel
 from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_202_ACCEPTED
-
+from .abstraction import Create_new_comment
 
 class CommentsTable(BaseModel):
     Comment: str
@@ -21,17 +21,10 @@ def fetch_all_users():
 
 @comments.post("/new-comment")
 def new_comment(request: Request, comment: CommentsTable):
-    from Logic.models import CommentsTable, UserModel
-    instance = CommentsTable(
-        uniqueID = comment.uniqueId,
-        comment = comment.Comment,
-        User_id = UserModel.objects.get(username = request.user.username).id,
-        Reactions = comment.Reactions[0]
-    )
-    instance.save()
+    Create_new_comment(comment, request)
     return {HTTP_200_OK: "New comment was added."}
 
-@comments.put("/edit-comment")
+@comments.patch("/edit-comment")
 def edit_comment(comments: editComments, request: Request, id: str):
     from Logic.models import CommentsTable
     try:

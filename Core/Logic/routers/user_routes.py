@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Request
 from pydantic.main import BaseModel
-from pydantic.types import UUID4
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 from pydantic import EmailStr
-
 from .abstraction import create_user_model, patch_user_model
 
 user_router = APIRouter()
@@ -43,7 +41,7 @@ def create_user(request: Request, user: PydanticUserModel):
         username=request.user.username
     ):
         create_user_model(user)
-        return {HTTP_201_CREATED:f"{user}"}
+        return {HTTP_201_CREATED:"User Created"}
 
 
 @user_router.delete("/user")
@@ -56,7 +54,7 @@ def delete_user(request: Request, user: DeleteUserModel):
             username=request.user.username
         ):
             pseudouser.delete()
-            return {HTTP_200_OK:user.Reg_no}
+            return f"The given user was deleted: {user.Reg_no}"
     else:
         return HTTP_404_NOT_FOUND
 
@@ -64,13 +62,14 @@ def delete_user(request: Request, user: DeleteUserModel):
 @user_router.patch("/user")
 def update_user(request: Request, user: PydanticUserModel):
     from Logic.models import UserModel
+
     pseudouser = UserModel.objects.get(Reg_no=user.Reg_no)
     if pseudouser and (
         request.user.username == pseudouser.username
         or UserModel.objects.get(username=request.user.username).is_staff
     ):
         patch_user_model(pseudouser, user)
-    return {HTTP_200_OK:f"pseudouser"}
+    return {HTTP_200_OK:f"{pseudouser}"}
 
 
 @user_router.get("/user/{user_id}")

@@ -73,7 +73,7 @@ def create_file(unique_id: str, file: UploadFile = File(...)):
 
 @issues.post("/post-linked-issue")
 def post_a_linked_issue(issuesTable: IssueTable):
-    from Logic.models import Issues, UserModel
+    from Logic.models import Issues
     if len(Issues.objects.filter(uniqueID=issuesTable.LinkedIssue_id)):
         create_linked_issue(IssueTable)
         return {HTTP_200_OK:"New issue was saved."}
