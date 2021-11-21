@@ -1,4 +1,6 @@
+import logging
 import os
+from logging.config import dictConfig
 from pathlib import Path
 
 from django.conf import settings
@@ -12,11 +14,17 @@ from starlette.responses import FileResponse
 from starlette.routing import Mount
 from starlette.staticfiles import StaticFiles
 
+from .logging_conf import LogConfig
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Core.settings")
 
-from Logic.routers import admin_router, user_router
+from Logic.routers import admin_router, comment_router, issue_router, user_router
 
 from .auth import BasicAuthBackend
+
+
+dictConfig(LogConfig().dict())
+logger = logging.getLogger("sahaay_app")
 
 security = HTTPBasic()
 app = get_asgi_application()
@@ -47,11 +55,8 @@ def get_logo():
     return FileResponse(path_to_file)
 
 
-
-@fastapi.post("/login")
-def login(
-    request: Request, credentials: HTTPBasicCredentials = Depends(security)
-):
+@fastapi.get("/login")
+def login(request: Request, credentials: HTTPBasicCredentials = Depends(security)):
     from Logic.models import UserModel
 
     user_data = UserModel.objects.filter(username=credentials.username)
@@ -62,8 +67,13 @@ def login(
 
     user = authenticate(username=credentials.username, password=credentials.password)
     if not user:
+        logger.error("Authentication Error")
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     # if user and request.method == "POST":
     #     return request.user
-fastapi.include_router(user_router,prefix="/routes")
-fastapi.include_router(admin_router,prefix="/administrator")
+
+
+fastapi.include_router(user_router, prefix="/routes")
+fastapi.include_router(issue_router, prefix="/issues_endpoint")
+fastapi.include_router(admin_router, prefix="/administrator")
+fastapi.include_router(comment_router, prefix="/comments")

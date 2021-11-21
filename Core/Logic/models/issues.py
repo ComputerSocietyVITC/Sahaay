@@ -7,6 +7,7 @@ from .Issue_tags import DEPARTMENTS, REACTIONS, TAG_CHOICES, PRIORITY_CHOICES, r
 
 class CommentsTable(models.Model):
     comment = models.TextField()
+    uniqueID = models.CharField(max_length = 200, unique=True, blank = True, default="000VITCC---")
     created_on = models.DateTimeField(auto_now_add=True)
     Images = models.ImageField()
     Reactions = MultiSelectField(max_length=20, blank=True, choices=REACTIONS)
@@ -21,7 +22,8 @@ class Issues(models.Model):
     Department = models.CharField(
         max_length=200, null=False, blank=True, choices=DEPARTMENTS, default = "Admin"
     )
-    Date_of_Creation = models.DateTimeField(auto_now=True)
+    uniqueID = models.CharField(max_length = 200, unique=True, blank = True, default="000VITCC---")
+    Date_of_Creation = models.DateTimeField(auto_now_add=True)
     Priority = models.CharField(max_length=100, choices=PRIORITY_CHOICES)
     isActive = models.BooleanField(default=True, null=False, blank=True, editable=True)
     LinkedIssue = models.ForeignKey("self", on_delete=models.DO_NOTHING, null = True, blank=True)
