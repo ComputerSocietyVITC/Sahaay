@@ -5,9 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+entrypoint.sh
 
 VirtualEnviron
-
+test-prometheus
 # Distribution / packaging
 .Python
 build/
@@ -137,7 +138,11 @@ ignore
 
 #env
 db.env
+env
 
 #dockerfiles
 Dockerfile
 docker-compose.yaml
+
+#grafana
+config.monitoring
