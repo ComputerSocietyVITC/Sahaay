@@ -41,7 +41,7 @@ def create_user(request: Request, user: PydanticUserModel):
         username=request.user.username
     ):
         create_user_model(user)
-        return HTTP_201_CREATED
+        return {HTTP_201_CREATED:"User Created"}
 
 
 @user_router.delete("/user")
