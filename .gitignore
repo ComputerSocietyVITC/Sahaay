@@ -3,11 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+linux_venv
 # C extensions
 *.so
 entrypoint.sh
 
 VirtualEnviron
+locust
+Load-testing
 test-prometheus
 # Distribution / packaging
 .Python
