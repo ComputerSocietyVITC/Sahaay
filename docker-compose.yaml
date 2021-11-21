@@ -6,8 +6,7 @@ services:
     container_name: database_postgres
     networks:
       - composed_network
-    env_file:
-        - db.env
+    
     ports:
         - 5432:5432
     volumes:
@@ -20,9 +19,7 @@ services:
     # Docker container Name will be Dancing Rose
     
     #Environment File
-    env_file:
-       - Core/.env
-    
+       
     command: sh -c "python3 manage.py migrate && hypercorn -b 'unix:/var/tmp/hypercorn.sock' -w 4 Core.asgi:fastapi"
     networks:
       - composed_network
@@ -39,42 +36,41 @@ services:
         - ./design:/design
         - ./Core:/Core
 
-  prometheus:
-    image: prom/prometheus:latest
-    restart: unless-stopped
-    container_name: net_prometheus
-    networks:
-      - composed_network
-    ports:
-      - 9090:9090
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    #Add further yml files here
+#   prometheus:
+#     image: prom/prometheus:latest
+#     restart: unless-stopped
+#     container_name: net_prometheus
+#     networks:
+#       - composed_network
+#     ports:
+#       - 9090:9090
+#     volumes:
+#       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+#     #Add further yml files here
      
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention=200h'
-      - '--web.enable-lifecycle'
+#     command:
+#       - "--config.file=/etc/prometheus/prometheus.yml"
+#       - '--storage.tsdb.path=/prometheus'
+#       - '--web.console.libraries=/etc/prometheus/console_libraries'
+#       - '--web.console.templates=/etc/prometheus/consoles'
+#       - '--storage.tsdb.retention=200h'
+#       - '--web.enable-lifecycle'
 
-  grafana:
-    image: grafana/grafana:latest
-    restart: unless-stopped
-    user: "472"
-    container_name: net_grafana
-    depends_on:
-      - prometheus
-    networks:
-      - composed_network
-    ports:
-      - 3000:3000
-    volumes:
-       - ./grafana/provisioning/datasources/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
-        #Add dashboards to the volumes
-    env_file:
-      - ./config.monitoring
+#   grafana:
+#     image: grafana/grafana:latest
+#     restart: unless-stopped
+#     user: "472"
+#     container_name: net_grafana
+#     depends_on:
+#       - prometheus
+#     networks:
+#       - composed_network
+#     ports:
+#       - 3000:3000
+#     volumes:
+#        - ./grafana/provisioning/datasources/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+#         #Add dashboards to the volumes
+   
   
 volumes:
     taskdb:
