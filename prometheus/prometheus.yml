@@ -1,10 +1,7 @@
- global:
-    scrape_interval: 15s
-    evaluation_interval: 15s  
-  rule_files:
-    # — “first.rules”
-    # — “second.rules”  \
-  scrape_configs:
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+scrape_configs:
   - job_name: fastapi
     static_configs:
-      - targets: ['jumping_Jose:8080']
+      - targets: ["jumping_Jose:8080"]
