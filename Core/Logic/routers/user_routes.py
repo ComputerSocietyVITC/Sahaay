@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Request
 from pydantic.main import BaseModel
-from pydantic.types import UUID4
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 from pydantic import EmailStr
 
@@ -70,7 +69,7 @@ def update_user(request: Request, user: PydanticUserModel):
         or UserModel.objects.get(username=request.user.username).is_staff
     ):
         patch_user_model(pseudouser, user)
-    return {HTTP_200_OK:f"pseudouser"}
+    return {HTTP_200_OK:f"{pseudouser}"}
 
 
 @user_router.get("/user/{user_id}")
