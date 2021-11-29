@@ -80,7 +80,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-ALGORITHM = os.environ.get("ALGORITHM")
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MOUNT_DATABASE = False
 MOUNT_DJANGO = True
