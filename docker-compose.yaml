@@ -1,41 +1,86 @@
 version: "3.9"
 
 services: 
-  api:
-    image: abhijithganesh/sahaay
+  db:
+    image: postgres
+    container_name: database_postgres
+    networks:
+      - composed_network
+
+    ports:
+        - 5432:5432
+    volumes:
+        - taskdb:/data/db
+
+  fastapi:
+    image: testing_sahaay
+    #change it to build: .
     container_name: Jumping_Jose
     # Docker container Name will be Dancing Rose
-    
-    #Environment File
-    # env_file:
-    #    - Core/.env
-    
-    #commands which will be executed
-    command: python3 manage.py migrate
-    command: python3 manage.py collectstatic
-    command: uvicorn Core.asgi:fastapi --proxy-headers --host 0.0.0.0 --port 8080
-
+    command: sh -c "python3 manage.py migrate &&  uvicorn Core.asgi:fastapi --proxy-headers --host 0.0.0.0 --port 8080"
+    networks:
+      - composed_network
     #ports that would be exposed
+    depends_on:
+      - db
     ports:
        - 8080:8080
     environment:
         - DB_URL=postgres://db/sahaayDB
-         
     # Links the directory ./app to the docker volume
     # app 
     volumes:
         - ./design:/design
         - ./Core:/Core
-  
-  db:
-    image: postgres
-    container_name: database_postgres
 
-#     env_file:
-#         - db.env
-    ports:
-        - 5432:5432
-    volumes:
-        - taskdb:/data/db
+#   prometheus:
+#     image: prom/prometheus:latest
+#     restart: unless-stopped
+#     container_name: net_prometheus
+#     networks:
+#       - composed_network
+#     ports:
+#       - 9090:9090
+#     volumes:
+#       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+#     #Add further yml files here
+     
+#     command:
+#       - "--config.file=/etc/prometheus/prometheus.yml"
+#       - '--storage.tsdb.path=/prometheus'
+#       - '--web.console.libraries=/etc/prometheus/console_libraries'
+#       - '--web.console.templates=/etc/prometheus/consoles'
+#       - '--storage.tsdb.retention=200h'
+#       - '--web.enable-lifecycle'
+
+#   grafana:
+#     image: grafana/grafana:latest
+#     restart: unless-stopped
+#     user: "472"
+#     container_name: net_grafana
+#     depends_on:
+#       - prometheus
+#     networks:
+#       - composed_network
+#     ports:
+#       - 3000:3000
+#     volumes:
+#        - ./grafana/provisioning/datasources/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+#         #Add dashboards to the volumes
+
+  
 volumes:
     taskdb:
+
+networks:
+  composed_network:
+    name: custom_network
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1
+        - subnet: 2001:3984:3989::/64
+          gateway: 2001:3984:3989::1
