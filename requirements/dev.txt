@@ -41,3 +41,5 @@ typing-extensions==3.10.0.2
 uvicorn==0.15.0
 wsproto==1.0.0
 yarl==1.7.2
+python-jose
+passlib
