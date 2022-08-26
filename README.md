@@ -1,4 +1,10 @@
-# Sahaay
+# Notice
+
+This project has been archived.
+
+
+## Sahaay
+
 **Sahaay** is a Q&A application with grievances/questions being posted as tokens. An open source application developed by the students at IEEE ComSoc VIT Chennai student chapter.
 
 ## Development
